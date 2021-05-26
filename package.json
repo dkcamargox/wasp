@@ -16,22 +16,39 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "electron-is-dev": "^2.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "r-start": "react-scripts start",
+    "r-build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"yarn r-start\" \"wait-on http://localhost:3000 && electron public/electron.js\"",
+    "e-start": "electron .",
+    "post-install": "electron-builder install-app-deps",
+    "e-build": "electron-builder -w"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "build": {
+    "appId": "dkcamargox.react-electron",
+    "productName": "ReactApp",
+    "copyright": "Copyright © 2019 Douglas Kauã Camargo",
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "browserslist": {
     "production": [
@@ -47,6 +64,7 @@
   },
   "devDependencies": {
     "electron": "^13.0.1",
-    "electron-builder": "^22.10.5"
+    "electron-builder": "^22.10.5",
+    "wait-on": "^5.3.0"
   }
 }
