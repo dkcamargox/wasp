@@ -2,6 +2,16 @@
   "name": "wasp",
   "version": "0.1.0",
   "private": true,
+  "description": "A Whatsapp massive message sender",
+  "author": {
+    "name": "dkcamargo",
+    "email": "camargo.douglas@icloud.com",
+    "url": "https://github.com/dkcamargox"
+  },
+  "repository": "https://github.com/dkcamargox/wasp.git",
+  "homepage": "./",
+  "main": "public/electron.js",
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -34,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^13.0.1",
+    "electron-builder": "^22.10.5"
   }
 }
