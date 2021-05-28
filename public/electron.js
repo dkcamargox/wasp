@@ -12,6 +12,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: path.resolve(__dirname, '..', 'assets', 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
     },
