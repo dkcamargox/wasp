@@ -1,5 +1,5 @@
 {
-  "name": "wasp",
+  "name": "Wasp",
   "version": "0.1.0",
   "private": true,
   "description": "A Whatsapp massive message sender",
@@ -16,7 +16,9 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "concurrently": "^6.2.0",
     "electron-is-dev": "^2.0.0",
+    "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -28,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently \"yarn r-start\" \"wait-on http://localhost:3000 && electron public/electron.js\"",
-    "e-start": "electron .",
+    "e-start": "electron public/electron.js",
     "post-install": "electron-builder install-app-deps",
     "e-build": "electron-builder -w"
   },
@@ -39,16 +41,20 @@
     ]
   },
   "build": {
-    "appId": "dkcamargox.react-electron",
-    "productName": "ReactApp",
-    "copyright": "Copyright © 2019 Douglas Kauã Camargo",
+    "appId": "dkcamargox.wasp",
+    "productName": "Wasp",
+    "copyright": "Copyright © 2021 Douglas Kauã Camargo",
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     },
     "directories": {
       "buildResources": "assets"
-    }
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ]
   },
   "browserslist": {
     "production": [
@@ -63,8 +69,11 @@
     ]
   },
   "devDependencies": {
+    "@rescripts/cli": "^0.0.16",
+    "@rescripts/rescript-env": "^0.0.14",
     "electron": "^13.0.1",
     "electron-builder": "^22.10.5",
+    "typescript": "^4.3.2",
     "wait-on": "^5.3.0"
   }
 }
