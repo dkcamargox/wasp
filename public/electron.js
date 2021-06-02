@@ -8,10 +8,15 @@ const { app, BrowserWindow } = electron;
 
 let mainWindow;
 
+/**
+ * create window and load ReactApp
+ */
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    minWidth: 400,
+    minHeight: 600,
     icon: path.resolve(__dirname, '..', 'assets', 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
@@ -27,22 +32,13 @@ function createWindow() {
   });
 }
 
-
+/**
+ * removeing ipc default listeners
+ */
 ipc.removeAllListeners();
-
-app.on('ready', () => {
-  createWindow();
-});
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
-});
-
+/**
+ * configuring app window
+ */
+app.on('ready', () => createWindow());
+app.on('window-all-closed', () => process.platform !== 'darwin' ? app.quit() : null);
+app.on('activate', () => mainWindow === null ? createWindow() : null);

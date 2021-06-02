@@ -1,0 +1,13 @@
+header {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #e69b15;
+    padding-inline: 5%;
+    color: #1B1826;
+    font-family: 'Roboto', sans-serif;
+    font-size: 48px;
+}
