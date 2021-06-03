@@ -1,0 +1,25 @@
+p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-inline: 8px;
+}
+
+a {
+    margin-inline: 8px;
+    color: #e69b15;
+}
+
+a:hover {
+    color: #0c0c1c;
+}
+
+@media screen and (max-width: 760px) {
+    p {
+        width: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-inline: 8px;
+    }
+}
