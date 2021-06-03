@@ -1,4 +1,4 @@
-import Upload from '../Upload';
+import Upload from '../Upload/index.jsx';
 import { FiHelpCircle } from 'react-icons/fi';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';

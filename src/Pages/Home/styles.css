@@ -26,10 +26,7 @@ h2, p {
     margin-inline: 8px;
 }
 
-@media screen and (max-width: 760px) {
-    .root {
-        height: 100%;
-    }
+@media screen and (max-width: 850px) {
     main {
         height: 100%;
         padding-block: 24px;

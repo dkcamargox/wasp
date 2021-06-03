@@ -28,3 +28,9 @@ body, input, button {
     flex-direction: column;
     align-items: center;
 }
+
+@media screen and (max-width: 850px) {
+    .root {
+        height: 100%;
+    }
+}
