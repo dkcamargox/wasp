@@ -1,0 +1,40 @@
+form {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    width: 95%;
+    height: 440px;
+}
+
+textarea {
+    width: 100%;
+    border-radius: 4px;
+    height: 100%;
+    border: 1px solid #999;
+    padding: 8px;
+    resize: none;
+}
+
+.button-wrap {
+    justify-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 95%;
+}
+
+button {
+    background: #0275d8;
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    padding-inline: 8px;
+    border-radius: 4px;
+    padding-block: 8px;
+    justify-self: flex-end;
+    transition: 0.2s;
+}
+
+button:hover {
+    opacity: 0.3;
+}

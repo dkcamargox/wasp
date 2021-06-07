@@ -1,17 +1,17 @@
 import styled, { css } from "styled-components";
 
 const dragActive = css`
-    border-color: #78e5d5;
+    border-color: #1eb53a;
 `;
 
 const dragReject = css`
-    border-color: #e57878;
+    border-color: #e23d28;
 `;
 
 const messageColors = {
     default: "#999",
-    error: "#e57878",
-    success: "#78e5d5"
+    error: "#e23d28",
+    success: "#1eb53a"
 };
 
 export const DropContainer = styled.div.attrs({

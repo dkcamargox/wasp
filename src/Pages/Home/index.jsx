@@ -1,5 +1,7 @@
-import Header from "../../Components/Header/index.jsx";
+// import Header from "../../Components/Header/index.jsx";
 import UploadArchiveMenu from '../../Components/UploadArchiveMenu/index.jsx';
+import MessageMenu from '../../Components/MessageMenu/index.jsx';
+import LogMenu from '../../Components/LogMenu/index.jsx';
 
 import React, { Component } from 'react'
 
@@ -9,19 +11,12 @@ export default class Home extends Component {
     render() {
         return(
             <div className="root">
-                <Header />
                 <main>        
                     <UploadArchiveMenu />
-            
-                    <div className="sub-menu">
-                        <h2>2 - Menu de mensagem</h2>
-                    </div>
-            
-                    <div className="sub-menu">
-                        <h2>3 - Log de Envios</h2>
-                    </div>
+                    <MessageMenu />
+                    <LogMenu />
                 </main>
             </div>
-        )
+        );
     }
 }

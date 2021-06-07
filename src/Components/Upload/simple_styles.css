@@ -6,3 +6,10 @@
     justify-content: center;
     margin-block: 16px;
 }
+
+.dropzone {
+    padding-block: 4px;
+}
+.dropzone p {
+    margin-block: 0;
+}
