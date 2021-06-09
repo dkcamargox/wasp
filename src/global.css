@@ -75,6 +75,19 @@ body, input, button {
     }
 }
 
+.alert {
+    margin-block: 4px;
+    width: 95%;
+    height: 40px;
+    background: #f8d7da;
+    color: #d9534f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d9534f;
+    border-radius: 4px;
+}
+
 @media screen and (max-width: 850px) {
     .root {
         height: 100%;

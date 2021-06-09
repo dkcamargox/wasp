@@ -1,6 +1,6 @@
 import Upload from '../Upload/index.jsx';
 import { FiHelpCircle, FiPlusCircle, FiTrash2, FiCheckCircle } from 'react-icons/fi';
-import React, { Component,FormEvent } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import csv from 'csvtojson';
 
@@ -9,6 +9,7 @@ export default class UploadArchiveMenu extends Component {
     state = { 
         clients: [],
         addSingle: false,
+        emptyValues: false,
         inputName: '',
         inputNumber: '',
     };
@@ -20,38 +21,35 @@ export default class UploadArchiveMenu extends Component {
     };  
 
     handleAddContact = event => {
-        console.log(this.state);
         this.setState({addSingle: true});
     };
     
     handleRevokeAddContact = event => {
-        console.log(this.state);
-
-        this.setState({addSingle: false});
+        this.setState({
+            addSingle: false,
+            emptyValues: false
+        });
     };
     
-    handleConfirmAddContact = (event: FormEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
-        this.setState({
-            clients: this.state.clients.concat({name: this.state.inputName, number: this.state.inputNumber})
-        });
-        this.setState({
-            inputName: '',
-            inputNumber: '',
-            addSingle: false
-        });
-    };
-
-    componentDidMount() {        
-        this.setState({
-            clients: [],
-            addSingle: false,
-        });
+    handleConfirmAddContact = event => {
+        if ('' !== this.state.inputName && '' !== this.state.inputNumber) {
+            this.setState({
+                clients: this.state.clients.concat({name: this.state.inputName, number: this.state.inputNumber})
+            });
+            this.setState({
+                inputName: '',
+                inputNumber: '',
+                addSingle: false,
+                emptyValues: false
+            });
+        } else {
+            this.setState({emptyValues: true});
+        }
     };
     
     render() {
-        const { clients, addSingle } = this.state
+        const { clients, addSingle, emptyValues } = this.state;
+        const { sending } = this.props;
         return (
             <div className="sub-menu">
                 <h2>
@@ -60,7 +58,12 @@ export default class UploadArchiveMenu extends Component {
                             <FiHelpCircle size={18}/>
                     </Link>
                 </h2>
-                <Upload placeHolder="Click acá para cargar el archivo..." onUpload={this.handleUpload} />
+                {emptyValues ? <>
+                    <div className="alert" role="alert">
+                        Los valores no pueden ser vacios
+                    </div>
+                </>:<></>}
+                <Upload accept="application/vnd.ms-excel" placeHolder="Click acá para cargar el archivo..." onUpload={this.handleUpload} />
                 <div className="upload-list-box">
                     <ul>
                         {
@@ -76,7 +79,7 @@ export default class UploadArchiveMenu extends Component {
                             ))
                         }
                     </ul>
-                    {addSingle ? (
+                    {!sending ? addSingle ? (
                         <>
                             <form id="add-client-form" className="upload-client-box">
                                 <input value={this.state.inputName} onChange={e => this.setState({inputName: e.target.value})} type="text" className="upload-client-info upload-client-name" />
@@ -95,7 +98,7 @@ export default class UploadArchiveMenu extends Component {
                         <button id="upload-add-contact" onClick={this.handleAddContact}>
                             <FiPlusCircle size={24}/>
                         </button>
-                    )}
+                    ): <></>}
                 </div>
             </div>
         );

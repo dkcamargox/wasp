@@ -35,10 +35,10 @@ export default class Upload extends Component {
   
 
   render() {
-    const { onUpload, placeHolder } = this.props;
+    const { onUpload, placeHolder, accept } = this.props;
     return (
        <div className="wrap">
-         <Dropzone accept="application/vnd.ms-excel" onDropAccepted={onUpload} maxFiles={1} >
+         <Dropzone accept={accept} onDropAccepted={onUpload} maxFiles={1} >
             { ( { getRootProps, getInputProps, isDragActive, isDragReject} ) => (
               <DropContainer
               { ...getRootProps() }

@@ -27,6 +27,7 @@ textarea {
 }
 
 button {
+    width: 40%;
     background: #0275d8;
     color: #FFF;
     font-family: 'Roboto', sans-serif;

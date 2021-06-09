@@ -42,7 +42,6 @@
     "e-build": "electron-builder -w"
   },
   "eslintConfig": {
-    "codeActionsOnSave": false,
     "extends": [
       "react-app",
       "react-app/jest"
