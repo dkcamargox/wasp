@@ -8,14 +8,19 @@ h2 {
     color: #6C6C80;
 }
 
-.client-info {
+.upload-client-info {
     font-family: 'Roboto';
     font-size: 24px;
     color: #6C6C80;
     width: 95%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    white-space: nowrap;
+    overflow-x: scroll;
+    
+}
+
+.upload-client-info::-webkit-scrollbar {
+    height: 4px;
+    width: auto;
 }
 
 li div{
@@ -24,15 +29,6 @@ li div{
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-}
-
-.client-telephone {
-    overflow-x: auto;
-}
-
-.client-telephone::-webkit-scrollbar {
-    height: 4px;
-    width: auto;
 }
 
 form {
@@ -54,7 +50,7 @@ a:hover {
     color: #0c0c1c;
 }
 
-.list-box {
+.upload-list-box {
     background: #FFF;
     width: 95%;
     height: 100%;
@@ -72,26 +68,31 @@ ul {
     width: 100%;
     padding: 0;
 }
-.client-box {
+
+.upload-client-box {
     text-decoration: none;
     width: 100%;
+    height: 42px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     border: 1px solid #c5c5c8;
+    border-radius: 4px;
+    margin-bottom: 1px
 }
 
-.client-info {
+input.upload-client-info {
     padding-inline: 4px;
+    height: 36px;
     min-width: 50%;
 }
 
-.client-box .client-info + .client-info {
+.upload-client-box .upload-client-info + .upload-client-info {
     border-left: 1px solid #c5c5c8;
 }
 
-.formButtonWrap {
+.upload-btn-wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -108,16 +109,16 @@ button:hover {
     opacity: 0.2;
 }
 
-#addContact {
+#upload-add-contact {
     background: #fff;
     color: #1eb53a;
 }
 
-#revokeAddContact {
+#upload-btn-revoke {
     background: #FFF;
     color: #e23d28;
 }
-#confirmAddContact {
+#upload-btn-confirm {
     background: #fff;
     color: #1eb53a;
 }
@@ -125,13 +126,13 @@ button:hover {
     h2 {
         width: 95%;
     }
-    .client-info {
+    .upload-client-info {
         width: 95%;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
-    .list-box {
+    .upload-list-box {
         height: 440px;
     }
 }
