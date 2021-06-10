@@ -6,23 +6,34 @@ import './styles.css'
 export default class MessageMenu extends Component {
     state = {
         message: '',
-        emptyValues: true
+        emptyValues: false,
+        image: null
     }
+
+    handleDropImage = ([image]) => {
+        this.setState({image});
+    };
+
     render() {
-        const { onSend, sending, onDropImage } = this.props;
-        const { emptyValues } = this.state;
+        const { onSend, sending } = this.props;
+        const { emptyValues, image } = this.state;
         return (
             <div className="sub-menu">
                 <h2>2 - Menu de mensagem</h2>
                 {emptyValues ? <>
-                    <div className="alert" role="alert">
-                        Los valores no pueden ser vacios
+                    <div className="alert alert-red" role="alert">
+                        El mensaje no puede ser vacio
                     </div>
                 </>:<></>}
                 <form>
                     <textarea name="message" id="message" onChange={e => this.setState({message: e.target.value})} ></textarea>
                 </form>
-                <Upload accept="image/*" placeHolder="Click acá para cargar una foto..." onUpload={onDropImage} />
+                <Upload accept="image/*" placeHolder="Click acá para cargar una foto..." onUpload={this.handleDropImage} />
+                {image !== null?<>
+                        <div className="alert alert-green" role="alert">
+                            Imagen adjuntada: "{image.name}"
+                        </div>
+                    </>:<></>}
                 <div className="button-wrap">
                     <button onClick={onSend} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '128px'}}>
                         { !sending ? <>

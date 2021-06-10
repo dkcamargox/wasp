@@ -59,7 +59,7 @@ export default class UploadArchiveMenu extends Component {
                     </Link>
                 </h2>
                 {emptyValues ? <>
-                    <div className="alert" role="alert">
+                    <div className="alert alert-red" role="alert">
                         Los valores no pueden ser vacios
                     </div>
                 </>:<></>}

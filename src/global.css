@@ -79,13 +79,22 @@ body, input, button {
     margin-block: 4px;
     width: 95%;
     height: 40px;
-    background: #f8d7da;
-    color: #d9534f;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #d9534f;
     border-radius: 4px;
+}
+
+.alert-red {
+    border: 1px solid #d9534f;
+    background: #f8d7da;
+    color: #d9534f;
+}
+
+.alert-green {
+    border: 1px solid #5cb85c;
+    background: #d4edda;
+    color: #5cb85c;
 }
 
 @media screen and (max-width: 850px) {
