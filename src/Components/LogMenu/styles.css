@@ -1,3 +1,13 @@
+h2 {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-inline: 8px;
+    font-family: 'Roboto';
+    font-size: 24px;
+}
+
 .log-list-box {
     background: #FFF;
     width: 95%;
