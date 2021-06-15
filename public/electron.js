@@ -4,11 +4,10 @@ const electron  = require('electron');
 const { ipcMain: ipc }  = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
-const { app, BrowserWindow, Menu, MenuItem } = electron;
+const { app, BrowserWindow } = electron;
 const {Builder, Capabilities, By, Key, until} = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const chromedriver = require('chromedriver');
-// const { convertCompilerOptionsFromJson, convertToObject } = require('typescript');
 
 let mainWindow;
 let driver = null;
