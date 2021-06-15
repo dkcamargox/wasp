@@ -16,7 +16,7 @@ export default class UploadArchiveMenu extends Component {
 
     handleUpload = ([file]) => {
         let reader = new FileReader();
-        reader.onload = e => csv().fromString(e.target.result).then(jsonArray => this.setState({clients: jsonArray}));
+        reader.onload = e => csv().fromString(e.target.result).then(jsonArray => this.setState({clients: jsonArray})).catch(()=> alert("Por favor adjunte un csv valido"));
         reader.readAsText(file);
     };  
 

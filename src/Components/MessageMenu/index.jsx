@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Upload from '../Upload/index.jsx'
-import { FiArrowRight, FiXOctagon } from 'react-icons/fi';
-
+import { FiArrowRight, FiXOctagon, FiSettings } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import './styles.css'
 export default class MessageMenu extends Component {
     state = {
@@ -19,7 +19,12 @@ export default class MessageMenu extends Component {
         const { emptyValues, image } = this.state;
         return (
             <div className="sub-menu">
-                <h2>2 - Menu de mensagem</h2>
+                <h2>
+                2 - Menu de mensaje: 
+                    <Link to="/settings">
+                            <FiSettings size={18}/>
+                    </Link>
+                </h2>
                 {emptyValues ? <>
                     <div className="alert alert-red" role="alert">
                         El mensaje no puede ser vacio

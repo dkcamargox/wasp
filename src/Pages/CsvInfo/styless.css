@@ -1,0 +1,80 @@
+.csv-root {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.csv-root main {
+    margin-top: 24px;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    width: 60%;
+    overflow-y: scroll;
+    border: 1px solid #e69b15;
+}
+
+.csv-root main div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.csv-root main div h2 a, .csv-root main div h2 svg {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.csv-root main div h2 {
+    font-size: 36px;
+
+    padding: 0;
+    margin-top: 0px;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.csv-root main div h2 a {
+    margin-right: 8px;
+    padding-top: 9px;
+}
+.csv-root svg {
+    padding-inline: 4px;
+}
+
+#csv {
+    max-height: 200px;
+    max-width: 500px;
+    width: 95%;
+}
+
+.csv-root main div * {
+    margin-block: 8px;
+}
+
+@media screen and (max-width: 850px) {
+    .csv-root main div {
+        width: 95%;
+    }
+    .csv-root main div h2 {
+        font-size: 24px;
+    }
+
+    .csv-root main div h2 a {
+        padding-top: 7px;
+    }
+
+    .csv-root main div svg {
+        width: 24px;
+        height: 24px;
+    }
+    .csv-root main div p {
+        font-size: 12px;
+    }
+}

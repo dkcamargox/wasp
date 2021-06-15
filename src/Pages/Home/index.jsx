@@ -37,21 +37,14 @@ export default class Home extends Component {
         }
     };
 
-    processSendMessages = (clients, message, image) => {        
+    processSendMessages = () => {        
+        this.setState({clientsError: []});
+        this.setState({clientsExito: []});
         if (this.state.sending === true) {
             ipc.send('abort');
         } else {
             ipc.send('create-browser');
         }
-
-        /**
-         * connect via ipc and run selenium one by one
-         * change logMenu state create props for errors and done
-         * logMenu prop running and done
-         * finally change done
-         * this.setState({ sending: false});
-         * this.setState({ done: true});
-         */
     };
 
     handleSend = async event => {
@@ -72,11 +65,14 @@ export default class Home extends Component {
         messageMenu.setState({emptyValues: false});
         this.setState({ sending: !this.state.sending});
         this.setState({ done: false});
-        
-        this.processSendMessages(uploadArchiveMenuState.clients, messageMenuState.message, messageMenuState.image);
+        this.processSendMessages();
     };
 
     componentDidMount() {
+        ipc.on('finish-response', (event, response) => {
+            this.setState({sending: false});
+        });
+
         ipc.on('create-browser-response', (event, response) => {
             const { status, error } = response;
             if (status === 'error') {
@@ -84,8 +80,11 @@ export default class Home extends Component {
                 alert(`Error criando la pagina del navegador para el Selenium\nError: ${error}`);
             }
             const { messageMenuState, uploadArchiveMenuState } = this.getChildsState().states;
-            ipc.send('send-messages', uploadArchiveMenuState.clients, messageMenuState.message, messageMenuState.image);
-
+            if (messageMenuState.image === null) {
+                ipc.send('send-messages', uploadArchiveMenuState.clients, messageMenuState.message, null);
+            } else {
+                ipc.send('send-messages', uploadArchiveMenuState.clients, messageMenuState.message, messageMenuState.image.path);
+            }
         });
 
         ipc.on('send-messages-response', (event, response) => {
@@ -93,19 +92,25 @@ export default class Home extends Component {
             const { uploadArchiveMenuState } = this.getChildsState().states;
             const { client, status } = response;
             
-            this.setState({processedClients: this.state.processedClients + 1});
-
-            if (status === 'error') {
-                this.setState({clientsError: this.state.clientsError.concat(client)});
-            } else {
-                this.setState({clientsExito: this.state.clientsExito.concat(client)});
-            }
-
-            if(this.state.processedClients === uploadArchiveMenuState.clients.length) {
-                this.setState({ sending: false});
-                this.setState({ done: true});
+            if (this.state.sending === true) {
+                this.setState({processedClients: this.state.processedClients + 1});
+    
+                if (status === 'error') {
+                    this.setState({clientsError: this.state.clientsError.concat(client)});
+                } else {
+                    this.setState({clientsExito: this.state.clientsExito.concat(client)});
+                }
+    
+                if(this.state.processedClients === uploadArchiveMenuState.clients.length) {
+                    this.setState({ sending: false});
+                    this.setState({ done: true});
+                }
             }
         });
+    };
+
+    componentWillUnmount() {
+        ipc.removeAllListeners();
     };
 
     render() {
