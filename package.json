@@ -1,6 +1,6 @@
 {
   "name": "wasp",
-  "version": "0.1.0",
+  "version": "1.1.2",
   "private": true,
   "description": "A Whatsapp massive message sender",
   "author": {
