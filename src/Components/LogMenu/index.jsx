@@ -32,6 +32,24 @@ export default class LogMenu extends Component {
                                     </li>
                             ))
                         }
+                        <li className="log-client-box">
+                                        <div className="log-client-info log-client-name">
+                                            Jo Branchi
+                                        </div>
+                                        <div className="log-client-info log-client-telephone">
+                                            5432
+                                        </div>
+                                        <div className="log-client-info log-client-status error">ERROR</div>
+                                    </li>
+                        <li className="log-client-box">
+                                        <div className="log-client-info log-client-name">
+                                            Douglas Camargo
+                                        </div>
+                                        <div className="log-client-info log-client-telephone">
+                                            5432
+                                        </div>
+                                        <div className="log-client-info log-client-status error">ERROR</div>
+                                    </li>
                     </ul>
                     {sending?<>
                         <FiLoader className="icon-spin" size={24} style={{marginTop: 16}}/>

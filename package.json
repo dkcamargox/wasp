@@ -53,7 +53,7 @@
   "build": {
     "appId": "dkcamargox.wasp",
     "productName": "Wasp",
-    "asar": false,  
+    "asar": false,
     "copyright": "Copyright © 2021 Douglas Kauã Camargo",
     "nsis": {
       "oneClick": false,

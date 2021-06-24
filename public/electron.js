@@ -5,7 +5,7 @@ const { ipcMain: ipc }  = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const { app, BrowserWindow } = electron;
-const {Builder, Capabilities, By, Key, until} = require('selenium-webdriver');
+const { Builder, Capabilities, By, Key, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const chromedriver = require('chromedriver');
 
@@ -63,37 +63,82 @@ ipc.on('send-messages', async (event, clients, message, image) => {
         return driver.findElement(locator);
     });
   }
+  const waitFindTimeOut = (locator, timeOut) => {
+    return driver.findElement(async () => {
+        await driver.wait(until.elementLocated(locator), timeOut);
+        return driver.findElement(locator);
+    });
+  }
 
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
   const timeOut = getTimeOut();
   try {
     for (const client of clients) {
+      console.log(client);
       try {
         await (async function send(driver) {
           try {
+            const sendMessage = async (client) => {
+              // find the footer message input
+              const inputMessage = await waitFind(By.className('_2A8P4'));
+              
+              // search for #name vars and change it for the name
+              const messageWithVars = message.replace('#name', client.name);
+              const messageWithVarAndLinebreaks = messageWithVars.split('\n').join(Key.SHIFT+Key.ENTER+Key.SHIFT);
+              
+              // if theres an image to send
+              if (image !== null) {
+                
+                // click on the attach image/file button
+                const attachFile = await waitFind(By.xpath('/html/body/div/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div[1]/div[2]'));
+                await attachFile.click();
+                
+                // find the image input and send the image
+                await driver.findElement(By.xpath("//input[@type='file']")).sendKeys(image);
+                
+                // loads the message input from the photo attach page
+                const photoInputMessage = await waitFind(By.className('_1JAUF'));
+                photoInputMessage.sendKeys(messageWithVarAndLinebreaks);
+                
+                // find the send button and click
+                const sendButton = await waitFind(By.className('_3doiV'));
+                await sendButton.click();
+                
+                // wait message to send => images take double
+                await delay(timeOut*2);
+                
+              } else {
+                
+                // whatsapp input footer
+                await waitFind(By.className('_2A8P4'));
+                
+                // click to focus
+                await inputMessage.click();
+
+                // send the message
+                await inputMessage.sendKeys(messageWithVarAndLinebreaks, Key.RETURN);
+                await delay(timeOut);
+              }
+            };
+            // get to the chat
             await driver.get(`https://web.whatsapp.com/send?phone=${client.number}`);
-            await delay(timeOut);
 
-            const inputMessage = await waitFind(By.className('_2A8P4'));
-
-            if (image !== null) {
-              const attachFile = await waitFind(By.xpath('/html/body/div/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div[1]/div[2]'));
-              await attachFile.click();
-              await driver.findElement(By.xpath("//input[@type='file']")).sendKeys(image);
-              const sendButton = await waitFind(By.xpath('/html/body/div/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/span/div'));
-              await sendButton.click();
-              await delay(timeOut*2);
+            try {
+              // find the footer message input
+              await waitFindTimeOut(By.className('_2A8P4'), timeOut*2);
+              await sendMessage(client);
+            } catch(error) {
+              try {
+                // trying to get the not found error message
+                await driver.wait(until.elementLocated(By.className('_3SRfO')), 5000);
+                await driver.findElement(By.className('_3SRfO'));
+                event.sender.send('send-messages-response', {status: 'error', client});
+                return;
+              } catch {
+                await sendMessage(client);
+              }
             }
-
-            await waitFind(By.className('_2A8P4'));
-            
-            await inputMessage.click();
-            
-            await inputMessage.sendKeys(message, Key.RETURN);
-            await delay(timeOut);
-
             event.sender.send('send-messages-response', {status: 'ok', client}); 
-          
           } catch (e) {
             console.log(e);
             event.sender.send('send-messages-response', {status: 'error', client}); 

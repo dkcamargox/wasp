@@ -61,13 +61,14 @@ ul {
 li div{
     cursor: default;
     width: 90%;
-    overflow-x: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
     margin: 0;
     padding: 4px;
 }
 
 .log-client-info {
-    overflow-x: auto;
+    overflow-x: scroll;
 }
 
 .log-client-info::-webkit-scrollbar {
