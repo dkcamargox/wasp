@@ -1,4 +1,4 @@
-require('dot-env').config();
+require('dotenv').config();
 
 const electron  = require('electron');
 const { ipcMain: ipc }  = require('electron');
