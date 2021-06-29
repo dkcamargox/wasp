@@ -90,11 +90,13 @@ ipc.on('send-messages', async (event, clients, message, image) => {
               if (image !== null) {
                 
                 // click on the attach image/file button
-                const attachFile = await waitFind(By.xpath('/html/body/div/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div[1]/div[2]'));
-                await attachFile.click();
+                const attachFile = await waitFind(By.css('#main > footer > div.vR1LG._3wXwX.copyable-area > div.EBaI7._23e-h > div._2C9f1 > div > div > span'));
+                await attachFile.click();                
                 
                 // find the image input and send the image
+                await delay(timeOut);
                 await driver.findElement(By.xpath("//input[@type='file']")).sendKeys(image);
+                await delay(timeOut);
                 
                 // loads the message input from the photo attach page
                 const photoInputMessage = await waitFind(By.className('_1JAUF'));
