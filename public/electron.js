@@ -12,6 +12,14 @@ const chromedriver = require('chromedriver');
 let mainWindow;
 let driver = null;
 let timeOut = 6500;
+// xpaths
+let footer = '//*[@id="main"]/footer/div[1]/div[2]/div/div[1]/div/div[2]';
+let imageInputButton = '/html/body/div/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div[1]/div[2]/div/div/span';
+let imageInput = '/html/body/div/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div[1]/span/div/div[2]/div/div[3]/div[1]';
+let imageSendButton = '/html/body/div/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/span/div/div';
+let errorMessage = '/html/body/div/div[1]/span[2]/div[1]/span/div[1]/div/div/div/div/div[1]';
+
+
 
 function getTimeOut() {
   return timeOut;
@@ -76,12 +84,13 @@ ipc.on('send-messages', async (event, clients, message, image) => {
     for (const client of clients) {
       console.log(client);
       try {
+        // eslint-disable-next-line no-loop-func
         await (async function send(driver) {
           try {
             const sendMessage = async (client) => {
               // find the footer message input
-              const inputMessage = await waitFind(By.className('_2A8P4'));
-              
+              const inputMessage = await waitFind(By.xpath(footer));
+              console.log(inputMessage)
               // search for #name vars and change it for the name
               const messageWithVars = message.replace('#name', client.name);
               const messageWithVarAndLinebreaks = messageWithVars.split('\n').join(Key.SHIFT+Key.ENTER+Key.SHIFT);
@@ -90,7 +99,7 @@ ipc.on('send-messages', async (event, clients, message, image) => {
               if (image !== null) {
                 
                 // click on the attach image/file button
-                const attachFile = await waitFind(By.css('#main > footer > div.vR1LG._3wXwX.copyable-area > div.EBaI7._23e-h > div._2C9f1 > div > div > span'));
+                const attachFile = await waitFind(By.xpath(imageInputButton));
                 await attachFile.click();                
                 
                 // find the image input and send the image
@@ -99,11 +108,11 @@ ipc.on('send-messages', async (event, clients, message, image) => {
                 await delay(timeOut);
                 
                 // loads the message input from the photo attach page
-                const photoInputMessage = await waitFind(By.className('_1JAUF'));
+                const photoInputMessage = await waitFind(By.xpath(imageInput));
                 photoInputMessage.sendKeys(messageWithVarAndLinebreaks);
                 
                 // find the send button and click
-                const sendButton = await waitFind(By.className('_3doiV'));
+                const sendButton = await waitFind(By.xpath(imageSendButton));
                 await sendButton.click();
                 
                 // wait message to send => images take double
@@ -112,7 +121,7 @@ ipc.on('send-messages', async (event, clients, message, image) => {
               } else {
                 
                 // whatsapp input footer
-                await waitFind(By.className('_2A8P4'));
+                await waitFind(By.xpath(footer));
                 
                 // click to focus
                 await inputMessage.click();
@@ -127,13 +136,13 @@ ipc.on('send-messages', async (event, clients, message, image) => {
 
             try {
               // find the footer message input
-              await waitFindTimeOut(By.className('_2A8P4'), timeOut*2);
+              await waitFindTimeOut(By.xpath(footer), timeOut*2);
               await sendMessage(client);
             } catch(error) {
               try {
                 // trying to get the not found error message
-                await driver.wait(until.elementLocated(By.className('_3SRfO')), 5000);
-                await driver.findElement(By.className('_3SRfO'));
+                await driver.wait(until.elementLocated(By.xpath(errorMessage)), 5000);
+                await driver.findElement(By.xpath(errorMessage));
                 event.sender.send('send-messages-response', {status: 'error', client});
                 return;
               } catch {

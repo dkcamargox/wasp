@@ -33,7 +33,7 @@ export default class MessageMenu extends Component {
                 <form>
                     <textarea name="message" id="message" onChange={e => this.setState({message: e.target.value})} ></textarea>
                 </form>
-                <Upload accept="image/*" placeHolder="Click acá para cargar una foto..." onUpload={this.handleDropImage} />
+                <Upload accept="image/*,video/mp4,video/3gpp,video/quicktime" placeHolder="Click acá para cargar una foto..." onUpload={this.handleDropImage} />
                 {image !== null?<>
                         <div className="alert alert-green" role="alert">
                             Imagen adjuntada: "{image.name}"

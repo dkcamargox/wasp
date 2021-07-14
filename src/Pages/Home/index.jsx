@@ -78,6 +78,7 @@ export default class Home extends Component {
             if (status === 'error') {
                 this.setState({sending: false});
                 alert(`Error criando la pagina del navegador para el Selenium\nError: ${error}`);
+                return;
             }
             const { messageMenuState, uploadArchiveMenuState } = this.getChildsState().states;
             if (messageMenuState.image === null) {
