@@ -13,13 +13,12 @@ let mainWindow;
 let driver = null;
 let timeOut = 6500;
 // xpaths
-let footer = '//*[@id="main"]/footer/div[1]/div[2]/div/div[1]/div/div[2]';
-let imageInputButton = '/html/body/div/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div[1]/div[2]/div/div/span';
-let imageInput = '/html/body/div/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div[1]/span/div/div[2]/div/div[3]/div[1]';
-let imageSendButton = '/html/body/div/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/span/div/div';
-let errorMessage = '/html/body/div/div[1]/span[2]/div[1]/span/div[1]/div/div/div/div/div[1]';
-
-
+//*[@id="main"]/footer/div[1]/div/div/div[2]/div[1]/div/div[2]
+let footer = '//*[@id="main"]/footer/div[1]/div/div/div[2]/div[1]/div/div[2]';
+let imageInputButton = '//*[@id="main"]/footer/div[1]/div/div/div[1]/div[2]/div/div';
+let imageInput = '//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[1]/div[3]/div/div/div[2]/div[1]/div[2]';
+let imageSendButton = '//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[2]/div[2]/div/div';
+let errorMessage = '//*[@id="app"]/div[1]/span[2]/div[1]/span/div[1]/div/div/div';
 
 function getTimeOut() {
   return timeOut;
